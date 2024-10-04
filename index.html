@@ -36,6 +36,8 @@
                                 // Lưu LineUID vào biến
                                 const lineUID = profile.userId;
                                 document.getElementById('uid').textContent = `Your LineUID: ${lineUID}`;
+                                let maxAttempts = 100;  // Giới hạn số lần kiểm tra
+                                let attempt = 0;
 
                                 for (let i = 0; i < maxAttempts; i++) {
                                 let inputElement = document.getElementById("xuantest");
