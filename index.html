@@ -36,6 +36,27 @@
                                 // Lưu LineUID vào biến
                                 const lineUID = profile.userId;
                                 document.getElementById('uid').textContent = `Your LineUID: ${lineUID}`;
+
+                                for (let i = 0; i < maxAttempts; i++) {
+                                let inputElement = document.getElementById("xuantest");
+                                
+                                if (inputElement) {
+                                  // Nếu phần tử tồn tại, đặt giá trị mới và thoát vòng lặp
+                                  inputElement.value = lineUID;
+                                  console.log("Giá trị đã được đặt!");
+                                  break;
+                                } else {
+                                  // Nếu phần tử không tồn tại, in ra thông báo
+                                  console.log("Phần tử chưa tồn tại. Tiếp tục kiểm tra...");
+                                }
+
+                                // Tăng số lần thử và thoát vòng lặp nếu đạt tới giới hạn
+                                attempt++;
+                                if (attempt >= maxAttempts) {
+                                  console.log("Đã đạt tới giới hạn kiểm tra.");
+                                  break;
+                                }
+                              }
                                 
                             })
                             .catch(err => {
