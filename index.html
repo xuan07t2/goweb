@@ -68,7 +68,7 @@
       function initializeLiff() {
           liff.init({ liffId: '1655694749-DlBp3RB8' })
               .then(() => {
-                  if (liff.isLoggedIn()) {
+                  if (liff.isInClient()) {
                       // Lấy thông tin người dùng sau khi đăng nhập
                       liff.getProfile()
                           .then(profile => {
