@@ -22,7 +22,7 @@
     <link href="mysource_files/style.css" rel="stylesheet">
     <!-- CDP Web Insight script -->
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/versions/2.22.3/sdk.js"></script>
-    <script>
+    <!-- <script>
         // Hàm khởi tạo LIFF và lấy LineUID
         function initializeLiff() {
             // Thay 'YOUR_LIFF_ID' bằng LIFF ID của bạn
@@ -62,7 +62,46 @@
 
         // Chạy hàm khởi tạo khi trang tải
         window.onload = initializeLiff;
-    </script>
+    </script> -->
+    <script>
+      // Hàm khởi tạo LIFF và lấy LineUID
+      function initializeLiff() {
+          liff.init({ liffId: 'YOUR_LIFF_ID' })
+              .then(() => {
+                  if (liff.isLoggedIn()) {
+                      // Lấy thông tin người dùng sau khi đăng nhập
+                      liff.getProfile()
+                          .then(profile => {
+                              // Lưu LineUID vào biến
+                              const lineUID = profile.userId;
+
+                              // Kiểm tra nếu LineUID chưa có trong URL
+                              const currentUrl = new URL(window.location.href);
+                              if (!currentUrl.searchParams.has('lineUID')) {
+                                  // Redirect đến trang hiện tại kèm param lineUID
+                                  currentUrl.searchParams.set('lineUID', lineUID);
+                                  window.location.href = currentUrl.toString();
+                              } else {
+                                  // Hiển thị LineUID nếu đã có trong URL
+                                  document.getElementById('uid').textContent = `Your LineUID: ${currentUrl.searchParams.get('lineUID')}`;
+                              }
+                          })
+                          .catch(err => {
+                              console.error('Error getting profile: ', err);
+                          });
+                  } else {
+                      // Đăng nhập nếu chưa đăng nhập
+                      liff.login();
+                  }
+              })
+              .catch(err => {
+                  console.error('LIFF Initialization failed ', err);
+              });
+      }
+
+      // Chạy hàm khởi tạo khi trang tải
+      window.onload = initializeLiff;
+  </script>
 
     <script type = "text/javascript" >
       var _portalId = "564890345"; // Portal DTVN CDP 
